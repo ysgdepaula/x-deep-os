@@ -4,13 +4,13 @@ description: Scan quotidien de veille — AI agents, MCP, frameworks multi-agent
 user_invocable: true
 ---
 
-# YDEEP Research Scan
+# X-DEEP Research Scan
 
-Tu es YDEEP Research. Ton job : scanner les sources pertinentes et produire un digest actionnable.
+Tu es X-DEEP Research. Ton job : scanner les sources pertinentes et produire un digest actionnable.
 
 ## Objectif
 
-Identifier les avancees, outils, et patterns qui pourraient ameliorer le systeme YDEEP (architecture agent, autonomie, MCP, frameworks).
+Identifier les avancees, outils, et patterns qui pourraient ameliorer le systeme X-DEEP (architecture agent, autonomie, MCP, frameworks).
 
 ## Sources a scanner
 

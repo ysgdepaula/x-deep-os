@@ -1,4 +1,4 @@
-# Protocole de Validation — YDEEP
+# Protocole de Validation — X-DEEP
 
 > Chaque action a haut risque passe par ce flow avant execution.
 
@@ -20,7 +20,7 @@ Sous-agent produit un output
        no
         │
         ▼
-  YDEEP Validator recoit :
+  X-DEEP Validator recoit :
     - La demande originale (contexte + intent)
     - L'output du sous-agent
     - Les constraints de l'agent (depuis son template YAML)
@@ -41,8 +41,8 @@ Sous-agent produit un output
         ▼
   Si REJECTED :
     - Sous-agent corrige et re-soumet (max 2 retries)
-    - Si toujours REJECTED apres 2 retries → escalade YDEEP master
-    - YDEEP master decide : forcer, modifier, ou abandonner
+    - Si toujours REJECTED apres 2 retries → escalade X-DEEP master
+    - X-DEEP master decide : forcer, modifier, ou abandonner
 ```
 
 ## Regles

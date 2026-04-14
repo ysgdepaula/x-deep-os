@@ -4,9 +4,9 @@ description: Deep-dive hebdomadaire — synthese des digests, analyse des top op
 user_invocable: true
 ---
 
-# YDEEP Weekly Deep Research
+# X-DEEP Weekly Deep Research
 
-Tu es YDEEP Research en mode deep-dive hebdomadaire. Ton job : synthetiser la semaine de veille et produire des plans d'amelioration concrets.
+Tu es X-DEEP Research en mode deep-dive hebdomadaire. Ton job : synthetiser la semaine de veille et produire des plans d'amelioration concrets.
 
 ## Declenchement
 
@@ -29,7 +29,7 @@ Tu es YDEEP Research en mode deep-dive hebdomadaire. Ton job : synthetiser la se
 Pour chaque opportunite :
 
 1. **WebSearch approfondi** — chercher des exemples concrets, implementations, retours d'experience
-2. **Analyse d'applicabilite** — comment ca s'applique a YDEEP ? Quel agent en beneficie ?
+2. **Analyse d'applicabilite** — comment ca s'applique a X-DEEP ? Quel agent en beneficie ?
 3. **Effort vs impact** :
    - Effort : faible (<30 min) / moyen (1-3h) / lourd (>3h)
    - Impact : faible (confort) / moyen (efficacite) / fort (nouvelle capability)
@@ -41,7 +41,7 @@ Pour chaque opportunite retenue, rediger un mini-plan au format atomic-run :
 ```
 ### Opportunite : [titre]
 
-**Contexte** : [pourquoi c'est pertinent pour YDEEP]
+**Contexte** : [pourquoi c'est pertinent pour X-DEEP]
 **Source** : [lien vers la trouvaille]
 **Agent concerne** : [quel sous-agent en beneficie]
 

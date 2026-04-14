@@ -1,6 +1,6 @@
 # Scout — Output Schema du sous-agent
 
-Le sous-agent `ydeep-scout` (template `sub-scout.yaml`) retourne **toujours** un JSON conforme a ce schema. Le skill `/scout` parse ce JSON pour generer le rapport + les propositions.
+Le sous-agent `xdeep-scout` (template `sub-scout.yaml`) retourne **toujours** un JSON conforme a ce schema. Le skill `/scout` parse ce JSON pour generer le rapport + les propositions.
 
 ## Schema
 
@@ -29,7 +29,7 @@ Le sous-agent `ydeep-scout` (template `sub-scout.yaml`) retourne **toujours** un
     "reasoning": "<2-3 phrases : pourquoi ce verdict>",
     "cross_refs": {
       "knowledge_articles": ["path1.md", "path2.md"],
-      "state_agents": ["ydeep-research"],
+      "state_agents": ["xdeep-research"],
       "state_skills": ["research-scan"]
     }
   },
@@ -88,10 +88,10 @@ Le sous-agent `ydeep-scout` (template `sub-scout.yaml`) retourne **toujours** un
   "verdict": {
     "label": "IMPROVEMENT",
     "confidence": 4,
-    "reasoning": "YDEEP utilise deja une architecture agent hierarchique mais ne formalise pas la metaphore OS. La metaphore clarifie les roles et aide a expliquer le systeme (utile pour pitch your company).",
+    "reasoning": "X-DEEP utilise deja une architecture agent hierarchique mais ne formalise pas la metaphore OS. La metaphore clarifie les roles et aide a expliquer le systeme (utile pour pitch your company).",
     "cross_refs": {
       "knowledge_articles": [".agent/knowledge/articles/platform/agent-architecture.md"],
-      "state_agents": ["ydeep-master"],
+      "state_agents": ["xdeep-master"],
       "state_skills": []
     }
   },
@@ -130,10 +130,10 @@ Le sous-agent `ydeep-scout` (template `sub-scout.yaml`) retourne **toujours** un
   "verdict": {
     "label": "ALREADY_DONE",
     "confidence": 5,
-    "reasoning": "YDEEP a deja ydeep-validator (level 2) qui joue ce role + protocole validation.md. Pas de duplication necessaire.",
+    "reasoning": "X-DEEP a deja xdeep-validator (level 2) qui joue ce role + protocole validation.md. Pas de duplication necessaire.",
     "cross_refs": {
       "knowledge_articles": [],
-      "state_agents": ["ydeep-validator"],
+      "state_agents": ["xdeep-validator"],
       "state_skills": ["validate"]
     }
   },
@@ -159,10 +159,10 @@ Le sous-agent `ydeep-scout` (template `sub-scout.yaml`) retourne **toujours** un
   "verdict": {
     "label": "CONTRADICTS",
     "confidence": 5,
-    "reasoning": "YDEEP a actuellement ydeep-engineering en level 1 qui pourrait pusher des PRs. Contradiction partielle : nous gardons human approve via Telegram, donc ok. Mais flagger pour revue.",
+    "reasoning": "X-DEEP a actuellement xdeep-engineering en level 1 qui pourrait pusher des PRs. Contradiction partielle : nous gardons human approve via Telegram, donc ok. Mais flagger pour revue.",
     "cross_refs": {
       "knowledge_articles": [".agent/knowledge/articles/core/git-discipline.md"],
-      "state_agents": ["ydeep-engineering"],
+      "state_agents": ["xdeep-engineering"],
       "state_skills": []
     }
   },

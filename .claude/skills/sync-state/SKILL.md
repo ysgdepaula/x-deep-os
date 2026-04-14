@@ -4,7 +4,7 @@ description: Synchronise l'etat partage .agent/ avec la memoire locale et presen
 user_invocable: true
 ---
 
-# Sync State — YDEEP
+# Sync State — X-DEEP
 
 Pont entre l'etat partage (.agent/ dans le repo) et la memoire locale. A utiliser en debut de session ou apres un audit nocturne.
 
@@ -29,7 +29,7 @@ Pont entre l'etat partage (.agent/ dans le repo) et la memoire locale. A utilise
 Format de sortie :
 
 ```
-SYNC YDEEP — [date]
+SYNC X-DEEP — [date]
 
 DERNIERE MAJ
 - state.json v[N] — mis a jour le [date]

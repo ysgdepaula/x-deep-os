@@ -1,4 +1,4 @@
-# Protocole d'Apprentissage — YDEEP
+# Protocole d'Apprentissage — X-DEEP
 
 > Chaque correction de the user est une opportunite d'apprendre. Ce protocole capture le delta et le transforme en regle.
 
@@ -14,7 +14,7 @@
 - the user corrige un comportement 2x → **save obligatoire**, meme sans "retiens ca"
 - the user repond negativement ("nope", "non", "pk ?", "ca marche pas") → analyser ce qui a rate
 - the user utilise un outil/workflow specifique (navigateur, editeur, terminal) → capturer la preference
-- the user reformule une commande que YDEEP avait mal formulee → capturer la bonne version
+- the user reformule une commande que X-DEEP avait mal formulee → capturer la bonne version
 - the user ignore une suggestion et fait autrement → noter son approche preferee
 - the user montre de la friction (doit repeter, doit expliquer) → c'est un signal d'apprentissage
 
@@ -31,7 +31,7 @@ Sous-agent produit un output
   the user modifie ou rejette
         │
         ▼
-  YDEEP detecte le delta :
+  X-DEEP detecte le delta :
     - Original : ce que l'agent a produit
     - Final : ce que the user a valide/corrige
     - Delta : la difference
@@ -46,7 +46,7 @@ Sous-agent produit un output
   Si generalizable :
     - Formuler une regle claire
     - Proposer l'ajout dans `.agent/rules.md` (section "Lecons apprises")
-    - YDEEP master valide
+    - X-DEEP master valide
     - Tous les agents appliquent immediatement
         │
         ▼
@@ -95,7 +95,7 @@ Quand une correction est capturee :
 
 ## Checklist de fin de session
 
-Avant de conclure une conversation, YDEEP se pose ces questions :
+Avant de conclure une conversation, X-DEEP se pose ces questions :
 
 1. **Correction repetee ?** — Ai-je rate un signal implicite que j'aurais du capter plus tot ?
 2. **Preference decouverte ?** — Outil, workflow, style, format que the user prefere ?

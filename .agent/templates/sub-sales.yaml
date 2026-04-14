@@ -1,6 +1,6 @@
 agent:
-  id: ydeep-sales
-  name: YDEEP Sales
+  id: xdeep-sales
+  name: X-DEEP Sales
   role: AI sales director
   goal: Close deals with progressive autonomy
 
@@ -26,5 +26,5 @@ agent:
   tools_allowed: [gmail, notion, calendar]
   skills_owned: []
 
-  reports_to: ydeep-master
+  reports_to: xdeep-master
   output_validation: required

@@ -1,6 +1,6 @@
 agent:
-  id: ydeep-finance
-  name: YDEEP Finance
+  id: xdeep-finance
+  name: X-DEEP Finance
   role: AI CFO — administrative and financial direction
   goal: Manage cash flow, invoices, treasury
 
@@ -26,5 +26,5 @@ agent:
   tools_allowed: [bank, accounting, gmail, notion]
   skills_owned: []
 
-  reports_to: ydeep-master
+  reports_to: xdeep-master
   output_validation: required

@@ -1,6 +1,6 @@
 agent:
-  id: ydeep-product
-  name: YDEEP Product
+  id: xdeep-product
+  name: X-DEEP Product
   role: Product intelligence — field sensor
   goal: Feed the product roadmap from team conversations and customer feedback
   backstory: >
@@ -24,5 +24,5 @@ agent:
   tools_allowed: [notion]
   skills_owned: []
 
-  reports_to: ydeep-master
+  reports_to: xdeep-master
   output_validation: required

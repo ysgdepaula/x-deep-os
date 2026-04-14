@@ -1,4 +1,4 @@
-# Protocole de Promotion d'Autonomie — YDEEP
+# Protocole de Promotion d'Autonomie — X-DEEP
 
 > Les sous-agents gagnent en autonomie progressivement, basé sur leur track record.
 
@@ -15,9 +15,9 @@
 
 | Transition | Condition | Qui decide |
 |-----------|-----------|------------|
-| 0 → 1 | >90% approval rate sur 20+ actions | YDEEP Research propose, YDEEP master valide |
-| 1 → 2 | >90% approval rate sur 50+ actions | YDEEP Research propose, YDEEP master valide |
-| 2 → 3 | >95% approval rate sur 100+ actions | YDEEP Research propose, the user valide explicitement |
+| 0 → 1 | >90% approval rate sur 20+ actions | X-DEEP Research propose, X-DEEP master valide |
+| 1 → 2 | >90% approval rate sur 50+ actions | X-DEEP Research propose, X-DEEP master valide |
+| 2 → 3 | >95% approval rate sur 100+ actions | X-DEEP Research propose, the user valide explicitement |
 
 ## Criteres de demotion
 
@@ -28,9 +28,9 @@
 
 ## Processus
 
-1. **YDEEP Research** analyse les stats d'autonomie dans le nightly-audit
+1. **X-DEEP Research** analyse les stats d'autonomie dans le nightly-audit
 2. Si un agent atteint le seuil → propose la promotion dans `.agent/queue.md`
-3. **YDEEP master** presente la proposition a the user dans le `/briefing`
+3. **X-DEEP master** presente la proposition a the user dans le `/briefing`
 4. the user valide ou refuse
 5. Si valide → mise a jour du `autonomy_level` dans state.json + templates
 6. Log dans changelog : `[promotion] agent-sales: 0 → 1 (92% approval, 25 actions)`

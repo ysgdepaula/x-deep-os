@@ -1,6 +1,6 @@
 agent:
-  id: ydeep-validator
-  name: YDEEP Validator
+  id: xdeep-validator
+  name: X-DEEP Validator
   role: QA and verification of critical outputs
   goal: Guarantee reliability and coherence of every high-risk action
   backstory: >
@@ -20,10 +20,10 @@ agent:
     - Reads and searches pass without validation
     - Verdict always justified (APPROVED/REJECTED + reason)
     - Log every decision in changelog.md
-    - Escalate rejections to YDEEP master
+    - Escalate rejections to X-DEEP master
 
   tools_allowed: [all-readonly]
   skills_owned: [validate]
 
-  reports_to: ydeep-master
+  reports_to: xdeep-master
   output_validation: none

@@ -4,9 +4,9 @@ description: Audit nocturne automatique — analyse la structure agent, skills, 
 user_invocable: true
 ---
 
-# Audit Nocturne — YDEEP
+# Audit Nocturne — X-DEEP
 
-Tu es YDEEP en mode audit. Ton job : analyser tout le workspace, mettre a jour l'etat partage (.agent/), et produire un rapport actionnable.
+Tu es X-DEEP en mode audit. Ton job : analyser tout le workspace, mettre a jour l'etat partage (.agent/), et produire un rapport actionnable.
 
 ## Etape 0 — Lire l'etat partage
 
@@ -65,7 +65,7 @@ Avant de signaler un probleme :
 - Cherche les TODO/FIXME/HACK dans le code : `grep -r "TODO\|FIXME\|HACK"` (hors node_modules)
 
 ### 2. CLAUDE.md — Coherence
-- Lis `$HOME/.ydeep/CLAUDE.md`
+- Lis `$HOME/.xdeep/CLAUDE.md`
 - Verifie que chaque skill referencee existe dans `.claude/skills/`
 - Verifie que chaque commande dev listee fonctionne (les fichiers existent)
 - Verifie que les chemins MCP references existent (`~/.mcp-servers/`)
@@ -113,7 +113,7 @@ Scanne le Sales CRM Notion (data source `136b816c-d06a-81ce-9164-000b75301a98`) 
    - Compare l'etat actuel du CRM avec le dernier snapshot (`.agent/crm-snapshot.json`)
    - Detecte les champs modifies manuellement par the user (Type, Priority, Statut, Prochain step)
    - Pour chaque correction : extraire le delta → learning protocol → proposer regle dans rules.md
-   - Mettre a jour les stats de ydeep-sales dans state.json (approved si inchange, rejected si corrige)
+   - Mettre a jour les stats de xdeep-sales dans state.json (approved si inchange, rejected si corrige)
 
 2. **Follow-ups en retard** :
    - Lister les fiches ou Follow-up due < aujourd'hui ET Statut != Gagne/Perdu/Standby
@@ -327,7 +327,7 @@ Gerer le cycle de vie complet des articles :
 - Sources non compilees : [liste ou "aucune"]
 - Gaps detectes : [liste ou "aucun"]
 
-## Phase 2 — Research Scan (YDEEP Research)
+## Phase 2 — Research Scan (X-DEEP Research)
 
 Apres l'audit technique, lance un scan de veille :
 
@@ -439,7 +439,7 @@ Scanner le journal du jour pour des patterns d'erreur non encore transformes en 
 - Fix-rate : [fermees / total crees] %
 - Temps moyen de resolution : [heures]
 
-## Phase 2.9 — Auto-Issue Creation (YDEEP Engineering)
+## Phase 2.9 — Auto-Issue Creation (X-DEEP Engineering)
 
 Quand l'audit detecte des problemes techniques actionnables, creer automatiquement des GitHub Issues au lieu de juste ecrire dans queue.md.
 
@@ -555,7 +555,7 @@ Analyse le digest + les evenements de la journee pour proposer des ameliorations
      - Level 0 → 1 : >90% approval sur 20+ actions
      - Level 1 → 2 : >90% approval sur 50+ actions
      - Level 2 → 3 : >95% approval sur 100+ actions (the user valide explicitement)
-   - Si un agent atteint le seuil → ajouter dans queue.md : "[promotion] ydeep-[agent]: [current] → [next] ([rate]% approval, [total] actions)"
+   - Si un agent atteint le seuil → ajouter dans queue.md : "[promotion] xdeep-[agent]: [current] → [next] ([rate]% approval, [total] actions)"
    - Si un agent est sous 80% sur les 20 dernieres → signaler URGENT demotion dans queue.md
    - Verifier les seuils de demotion :
      - Approval rate < 80% sur les 20 dernieres actions → retour au niveau precedent
@@ -583,8 +583,8 @@ Si l'audit est de routine sans nouvelle regle → pas d'ingest (pas de bruit).
 ## Format du rapport
 
 Le rapport est sauvegarde dans 2 endroits :
-1. `$HOME/.ydeep/.nightly-audit-latest.md` — version fichier (detail complet)
-2. `$HOME/.ydeep/reports/nightly-audit-YYYY-MM-DD.md` — archive
+1. `$HOME/.xdeep/.nightly-audit-latest.md` — version fichier (detail complet)
+2. `$HOME/.xdeep/reports/nightly-audit-YYYY-MM-DD.md` — archive
 
 ### Regles de formatage (Telegram-friendly)
 
@@ -601,7 +601,7 @@ Le rapport est lu par the user sur Telegram. Il doit etre lisible en texte brut 
 ### Template de sortie
 
 ```
-Audit YDEEP — [jour] [date]. Score [A/B/C/D]. [N] actions, [M] resolues auto.
+Audit X-DEEP — [jour] [date]. Score [A/B/C/D]. [N] actions, [M] resolues auto.
 
 QUICK WINS (appliques)
 - [action faite] — [resultat]
@@ -676,10 +676,10 @@ VEILLE
 
 Audit propre :
 ```
-Audit YDEEP — dimanche 13 avril. Score A. 2 actions, 1 resolue auto.
+Audit X-DEEP — dimanche 13 avril. Score A. 2 actions, 1 resolue auto.
 
 QUICK WINS (appliques)
-- state.json v12 : skill orphelin assigne a ydeep-research
+- state.json v12 : skill orphelin assigne a xdeep-research
 
 A FAIRE (< 30 min)
 - Confirmer deploy Railway post-fix Telegram (~10 min)
@@ -690,14 +690,14 @@ REGLES APPRISES
 
 Audit charge :
 ```
-Audit YDEEP — lundi 14 avril. Score C. 8 actions, 3 resolues auto.
+Audit X-DEEP — lundi 14 avril. Score C. 8 actions, 3 resolues auto.
 
 QUICK WINS (appliques)
 - 2 plans PENDING marques EXECUTED (code existait)
 - Item queue obsolete coche (fichier supprime)
 
 A FAIRE (< 30 min)
-- Creer skill /comms pour ydeep-comms (~20 min)
+- Creer skill /comms pour xdeep-comms (~20 min)
 - Marquer 3 plans ABANDONED — inactifs > 14j (~5 min)
 
 GROS CHANTIERS
@@ -708,7 +708,7 @@ CRM
 - 1 hot deal inactif > 7j : Dubois (Thales)
 
 AGENTS
-- ydeep-sales : level 0, 25 actions, 92% approval — promotion possible (seuil 90% atteint)
+- xdeep-sales : level 0, 25 actions, 92% approval — promotion possible (seuil 90% atteint)
 
 REGLES APPRISES
 - Ne pas re-signaler sans cross-check code (source: faux positif plan your outbound tool)
