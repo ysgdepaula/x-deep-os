@@ -141,6 +141,12 @@ Full citations in [`docs/architecture-principles.md`](docs/architecture-principl
 
 **Snapshot 2026-04-14.** This is a working personal setup that its author uses every day. It's not a maintained open-source product — if you fork and customize, you own the fork. I'll read issues and PRs, but response times are whenever-I-have-time.
 
+## Security posture
+
+Before you `npm install`: the repo depends only on first-party SDKs (Anthropic, OpenAI, Google, Notion, Telegram's grammY) and massively-adopted utilities. `package-lock.json` pins exact versions. Dependabot is enabled.
+
+Run `npm audit` before installing. See [`SECURITY.md`](SECURITY.md) for the full supply-chain breakdown and the explicit list of what is (and isn't) hardened.
+
 ## License
 
 MIT. See [`LICENSE`](LICENSE).

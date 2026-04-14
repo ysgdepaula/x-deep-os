@@ -1,0 +1,47 @@
+version: 2
+updates:
+  # Root (none — the repo itself has no package.json)
+
+  # Validators
+  - package-ecosystem: "npm"
+    directory: "/.agent/scripts"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 3
+    labels:
+      - "dependencies"
+      - "auto-fix"
+
+  # Telegram bot
+  - package-ecosystem: "npm"
+    directory: "/telegram-bot"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "auto-fix"
+
+  # MCP servers
+  - package-ecosystem: "npm"
+    directory: "/mcp-servers"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 3
+    labels:
+      - "dependencies"
+      - "auto-fix"
+
+  # GitHub Actions themselves
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 3
+    labels:
+      - "ci"
+      - "dependencies"
