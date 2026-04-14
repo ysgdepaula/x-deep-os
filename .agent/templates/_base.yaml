@@ -1,0 +1,31 @@
+# YDEEP Agent Template — Base Schema
+# All agent definitions must follow this structure.
+# Fields marked (required) must be present. Others are optional.
+
+agent:
+  id: string                    # (required) unique identifier, kebab-case
+  name: string                  # (required) display name
+  role: string                  # (required) one-line role description
+  goal: string                  # (required) end-state objective
+  backstory: string             # context, expertise, personality
+
+  autonomy_level: 0             # 0=propose, 1=execute+approve, 2=execute+review, 3=full auto
+  autonomy_stats:
+    total_actions: 0
+    approved: 0
+    rejected: 0
+    approval_rate: 0.0
+
+  constraints: []               # list of rules this agent must follow
+  tools_allowed: []             # list of MCP tool prefixes (e.g. gmail, notion, calendar)
+  skills_owned: []              # list of skills this agent is responsible for
+
+  reports_to: string            # parent agent id (or "human" for master)
+  output_validation: required   # required | optional | none
+
+  # Promotion criteria (read by Research agent)
+  promotion:
+    "0_to_1": ">90% approval on 20+ actions"
+    "1_to_2": ">90% approval on 50+ actions"
+    "2_to_3": ">95% approval on 100+ actions + explicit user validation"
+    demotion: "<80% approval on last 20 actions"

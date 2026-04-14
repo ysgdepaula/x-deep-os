@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ydeep.local/schemas/agent-template.schema.json",
+  "title": "YDEEP Agent Template",
+  "description": "Schema for sub-<name>.yaml templates in .agent/templates/",
+  "type": "object",
+  "required": ["agent"],
+  "additionalProperties": false,
+  "properties": {
+    "agent": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "role",
+        "goal",
+        "autonomy_level",
+        "constraints",
+        "tools_allowed",
+        "skills_owned",
+        "reports_to"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^(ydeep|x-deep)-[a-z][a-z0-9-]*$",
+          "description": "Must match key in state.json agents"
+        },
+        "name": { "type": "string", "minLength": 1 },
+        "role": { "type": "string", "minLength": 1 },
+        "goal": { "type": "string", "minLength": 1 },
+        "backstory": { "type": "string" },
+        "autonomy_level": {
+          "type": "integer",
+          "enum": [0, 1, 2, 3]
+        },
+        "autonomy_stats": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "total_actions": { "type": "integer", "minimum": 0 },
+            "approved": { "type": "integer", "minimum": 0 },
+            "rejected": { "type": "integer", "minimum": 0 },
+            "approval_rate": { "type": "number", "minimum": 0, "maximum": 1 }
+          }
+        },
+        "constraints": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "minItems": 1
+        },
+        "tools_allowed": {
+          "oneOf": [
+            { "type": "array", "items": { "type": "string" } },
+            { "const": "all" },
+            {
+              "type": "array",
+              "items": { "const": "all" },
+              "minItems": 1,
+              "maxItems": 1
+            }
+          ]
+        },
+        "skills_owned": {
+          "type": "array",
+          "items": { "type": "string" },
+          "uniqueItems": true
+        },
+        "reports_to": {
+          "type": "string",
+          "description": "Either 'human' or another agent id (must exist in state.json)"
+        },
+        "output_validation": {
+          "type": "string",
+          "enum": ["required", "optional", "none"]
+        },
+        "promotion": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ydeep.local/schemas/state.schema.json",
+  "title": "YDEEP State",
+  "description": "Source of truth for the YDEEP agent system",
+  "type": "object",
+  "required": [
+    "version",
+    "last_updated",
+    "identity",
+    "agents",
+    "triggers",
+    "protocols",
+    "projects",
+    "mcp"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "integer", "minimum": 1 },
+    "last_updated": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+    "last_audit": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+    "identity": { "type": "string", "minLength": 1 },
+    "agents": {
+      "type": "object",
+      "minProperties": 1,
+      "patternProperties": {
+        "^(ydeep|x-deep)-[a-z][a-z0-9-]*$": { "$ref": "#/$defs/agent" }
+      },
+      "additionalProperties": false
+    },
+    "triggers": {
+      "type": "object",
+      "required": ["remote", "local"],
+      "additionalProperties": false,
+      "properties": {
+        "remote": { "type": "array", "items": { "$ref": "#/$defs/trigger" } },
+        "local": { "type": "array", "items": { "$ref": "#/$defs/trigger" } }
+      }
+    },
+    "protocols": {
+      "type": "array",
+      "items": { "type": "string" },
+      "uniqueItems": true
+    },
+    "projects": {
+      "type": "array",
+      "items": { "type": "string" },
+      "uniqueItems": true
+    },
+    "mcp": {
+      "type": "array",
+      "items": { "type": "string" },
+      "uniqueItems": true
+    }
+  },
+  "$defs": {
+    "agent": {
+      "type": "object",
+      "required": ["autonomy_level", "skills", "stats"],
+      "additionalProperties": true,
+      "properties": {
+        "autonomy_level": { "type": "integer", "enum": [0, 1, 2, 3] },
+        "skills": {
+          "type": "array",
+          "items": { "type": "string" },
+          "uniqueItems": true
+        },
+        "stats": {
+          "type": "object",
+          "required": ["total", "approved", "rejected"],
+          "additionalProperties": false,
+          "properties": {
+            "total": { "type": "integer", "minimum": 0 },
+            "approved": { "type": "integer", "minimum": 0 },
+            "rejected": { "type": "integer", "minimum": 0 }
+          }
+        },
+        "data_sources": { "type": "object" }
+      }
+    },
+    "trigger": {
+      "type": "object",
+      "required": ["name", "status"],
+      "additionalProperties": true,
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "id": { "type": "string" },
+        "cron": { "type": "string" },
+        "description": { "type": "string" },
+        "status": {
+          "type": "string",
+          "enum": ["active", "pending-creation", "defined", "disabled"]
+        }
+      }
+    }
+  }
+}

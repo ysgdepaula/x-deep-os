@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ydeep.local/schemas/skill-frontmatter.schema.json",
+  "title": "YDEEP Skill Frontmatter",
+  "description": "Schema for the YAML frontmatter of .claude/skills/<name>/SKILL.md",
+  "type": "object",
+  "required": ["name", "description"],
+  "additionalProperties": false,
+  "properties": {
+    "name": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*$",
+      "description": "kebab-case, must be unique across .claude/skills/"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 500
+    },
+    "user_invocable": {
+      "type": "boolean",
+      "default": true
+    }
+  }
+}
