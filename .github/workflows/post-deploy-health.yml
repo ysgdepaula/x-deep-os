@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     # Wait for Railway to deploy
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Wait for Railway deploy
         run: sleep 90
