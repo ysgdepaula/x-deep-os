@@ -1,0 +1,98 @@
+name: Auto-Fix (Claude Code Action)
+
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  auto-fix:
+    if: github.event.label.name == 'auto-fix' || github.event.label.name == 'enhancement'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+      id-token: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Count previous attempts
+        id: attempts
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const comments = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+            const attempts = comments.data.filter(c => c.body?.includes('Feedback from user')).length;
+            core.setOutput('count', attempts);
+            if (attempts >= 3) {
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                labels: ['needs-human']
+              });
+              await github.rest.issues.removeLabel({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                name: 'auto-fix'
+              }).catch(() => {});
+              core.info('Max attempts reached, escalating to human');
+            }
+
+      - name: Run Claude Code Action
+        if: steps.attempts.outputs.count < 3
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            Read the issue below and ${{ github.event.label.name == 'enhancement' && 'implement this improvement' || 'fix the bug' }} in the codebase.
+            This is attempt ${{ steps.attempts.outputs.count }} of max 3.
+
+            Rules:
+            - Read CLAUDE.md and .agent/rules.md for project context
+            - File limit by label: auto-fix=3, enhancement=10, blueprint=20
+            - Write small, focused diffs
+            - Never force push
+            - If you modify .agent/state.json, .agent/templates/*.yaml, or .claude/skills/*/SKILL.md:
+              run `node .agent/scripts/validate-all.mjs` BEFORE committing
+            - Test your changes if possible (node -e "import('./file.mjs')")
+            - Run lint on modified projects: npm run lint (in the relevant project dir)
+            - Create a clear PR title and description
+            - If you can't fix it, comment on the issue explaining why
+            - Read ALL previous comments on the issue for feedback from prior attempts
+
+            BASH WHITELIST (only use these prefixes):
+              ALLOWED: git, npm, node, npx, yarn, pnpm, gh, jq, cat, ls, head, tail, grep,
+                       find, mkdir, cp, mv, touch, echo, sed (in-place only with backup), date, pwd, wc
+              FORBIDDEN: rm -rf /, sudo, ssh, dd, mkfs, curl POST/PUT/DELETE to external hosts,
+                         chmod 777, chown, nc, telnet, eval of remote content
+            If a task requires a forbidden command, comment on the issue explaining why
+            and DO NOT proceed with workarounds.
+
+            Issue title: ${{ github.event.issue.title }}
+            Issue body: ${{ github.event.issue.body }}
+            Label: ${{ github.event.label.name }}
+          claude_args: "--model claude-sonnet-4-6"
+          show_full_output: true
+
+      - name: Notify escalation via Telegram
+        if: steps.attempts.outputs.count >= 3
+        env:
+          TG_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TG_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_IDS }}
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_URL: ${{ github.event.issue.html_url }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          MSG="⚠️ Fix echoue apres 3 tentatives\n\n#${ISSUE_NUMBER}: ${ISSUE_TITLE}\n\nJe n'arrive pas a fixer ca automatiquement. A toi de jouer.\n${ISSUE_URL}"
+          curl -s -X POST "https://api.telegram.org/bot${TG_TOKEN}/sendMessage" \
+            -H "Content-Type: application/json" \
+            -d "{\"chat_id\": \"${TG_CHAT_ID}\", \"text\": $(echo "$MSG" | jq -Rs .)}"

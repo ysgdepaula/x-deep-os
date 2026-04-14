@@ -1,0 +1,8 @@
+{
+  "name": "gmail",
+  "description": "Gmail API integration — search, read, draft, and send emails",
+  "requiredEnv": ["MCP_CONFIG_DIR"],
+  "optionalEnv": ["ACCOUNT_NAME"],
+  "authType": "oauth2",
+  "tools": ["get_profile", "search_messages", "read_message", "create_draft", "send_draft", "send_email"]
+}

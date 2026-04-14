@@ -1,0 +1,92 @@
+name: CI Quality Gate
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  enforce-file-limit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Count changed files
+        id: count
+        run: |
+          git fetch origin main
+          COUNT=$(git diff --name-only origin/main...HEAD | wc -l | tr -d ' ')
+          echo "count=$COUNT" >> $GITHUB_OUTPUT
+          echo "Changed files: $COUNT"
+      - name: Enforce limit by label
+        env:
+          LABELS: ${{ toJson(github.event.pull_request.labels.*.name) }}
+          COUNT: ${{ steps.count.outputs.count }}
+        run: |
+          MAX=10
+          if echo "$LABELS" | grep -q '"blueprint"'; then
+            MAX=20
+          elif echo "$LABELS" | grep -q '"auto-fix"'; then
+            MAX=3
+          fi
+          echo "Limit for this PR: $MAX (count: $COUNT)"
+          if [ "$COUNT" -gt "$MAX" ]; then
+            echo "::error::PR touches $COUNT files, max allowed is $MAX (label-based)"
+            exit 1
+          fi
+
+  validate-agents:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install agent script deps
+        run: cd .agent/scripts && npm ci
+      - name: Validate state, templates, skills
+        run: node .agent/scripts/validate-all.mjs
+
+  detect-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      telegram-bot: ${{ steps.filter.outputs.telegram-bot }}
+      mcp-servers: ${{ steps.filter.outputs.mcp-servers }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            telegram-bot:
+              - 'telegram-bot/**'
+            mcp-servers:
+              - 'mcp-servers/**'
+
+  lint-telegram-bot:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.telegram-bot == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: cd telegram-bot && npm ci
+      - name: Lint
+        run: cd telegram-bot && npm run lint
+      - name: Syntax check
+        run: cd telegram-bot && node --check src/*.mjs
+
+  syntax-mcp-servers:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.mcp-servers == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: cd mcp-servers && npm ci
+      - name: Syntax check
+        run: cd mcp-servers && find . -name "*.mjs" -not -path "./node_modules/*" -exec node --check {} \;

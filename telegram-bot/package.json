@@ -1,0 +1,22 @@
+{
+  "name": "x-deep-os-telegram",
+  "version": "1.0.0",
+  "description": "X-DEEP OS — Telegram harness: grammY + Claude tool_use + Whisper + skills + self-healing",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.mjs",
+    "dev": "node --watch src/index.mjs",
+    "lint": "eslint src/"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.52.0",
+    "@modelcontextprotocol/sdk": "^1.12.1",
+    "dotenv": "^16.5.0",
+    "grammy": "^1.35.0",
+    "openai": "^6.33.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.2.0"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "name": "example-service",
+  "description": "Starter template for a new MCP service. Copy this folder, rename, and implement your tools in tools.mjs.",
+  "requiredEnv": ["MCP_CONFIG_DIR"],
+  "optionalEnv": [],
+  "authType": "none",
+  "tools": ["example_tool"]
+}

@@ -1,0 +1,39 @@
+name: PR Notification (Telegram)
+
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  notify:
+    # Only notify for PRs created by github-actions (Claude Code Action)
+    if: github.event.pull_request.user.login == 'github-actions[bot]' || contains(github.event.pull_request.title, '[auto-fix]')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Telegram notification
+        env:
+          TG_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TG_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_IDS }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          PR_BODY: ${{ github.event.pull_request.body }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_CHANGED: ${{ github.event.pull_request.changed_files }}
+        run: |
+          BODY=$(echo "$PR_BODY" | head -c 500)
+          MSG=$(cat <<EOF
+          🔧 Fix propose : PR #${PR_NUMBER}
+
+          ${PR_TITLE}
+
+          ${BODY}
+
+          Fichiers modifies : ${PR_CHANGED}
+          Lien : ${PR_URL}
+
+          Reponds "approve #${PR_NUMBER}" ou "reject #${PR_NUMBER}" sur Telegram.
+          EOF
+          )
+          curl -s -X POST "https://api.telegram.org/bot${TG_TOKEN}/sendMessage" \
+            -H "Content-Type: application/json" \
+            -d "{\"chat_id\": \"${TG_CHAT_ID}\", \"text\": $(echo "$MSG" | jq -Rs .)}"

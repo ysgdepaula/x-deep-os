@@ -1,0 +1,119 @@
+name: Post-Deploy Health Check
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  health-check:
+    runs-on: ubuntu-latest
+    # Wait for Railway to deploy
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Wait for Railway deploy
+        run: sleep 90
+
+      - name: Check Telegram bot is alive
+        id: bot-check
+        env:
+          TG_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        run: |
+          # Use getMe to verify bot is responding
+          RESPONSE=$(curl -s -w "\n%{http_code}" "https://api.telegram.org/bot${TG_TOKEN}/getMe")
+          HTTP_CODE=$(echo "$RESPONSE" | tail -1)
+          BODY=$(echo "$RESPONSE" | head -1)
+
+          if [ "$HTTP_CODE" = "200" ]; then
+            echo "Bot is alive"
+            echo "status=ok" >> $GITHUB_OUTPUT
+          else
+            echo "Bot check failed: HTTP $HTTP_CODE"
+            echo "status=failed" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Notify success via Telegram
+        if: steps.bot-check.outputs.status == 'ok'
+        env:
+          TG_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TG_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_IDS }}
+          COMMIT_SHA: ${{ github.sha }}
+          COMMIT_MSG: ${{ github.event.head_commit.message }}
+        run: |
+          SHORT_SHA="${COMMIT_SHA:0:8}"
+          # Take first line of commit message only
+          FIRST_LINE=$(echo "$COMMIT_MSG" | head -1)
+          MSG="Deploy OK (${SHORT_SHA})\n${FIRST_LINE}"
+          curl -s -X POST "https://api.telegram.org/bot${TG_TOKEN}/sendMessage" \
+            -H "Content-Type: application/json" \
+            -d "{\"chat_id\": \"${TG_CHAT_ID}\", \"text\": $(echo "$MSG" | jq -Rs .)}"
+
+      - name: Auto-rollback on failure
+        id: rollback
+        if: steps.bot-check.outputs.status == 'failed'
+        env:
+          COMMIT_SHA: ${{ github.sha }}
+        run: |
+          # Check if HEAD~1 was healthy by looking at the previous commit's status
+          # Heuristic: if the previous commit exists and is on main, revert
+          git fetch origin main
+          PREV=$(git rev-parse HEAD~1 2>/dev/null || echo "")
+
+          if [ -z "$PREV" ]; then
+            echo "No previous commit, cannot rollback"
+            echo "rolled_back=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          # Configure git for the revert commit
+          git config user.email "x-deep-engineering@noreply.local"
+          git config user.name "X-DEEP Engineering"
+
+          # Create a revert commit (safer than reset --hard)
+          if git revert HEAD --no-edit; then
+            git push origin HEAD:main
+            echo "rolled_back=true" >> $GITHUB_OUTPUT
+            echo "prev_sha=$PREV" >> $GITHUB_OUTPUT
+            echo "Auto-revert pushed to main"
+          else
+            echo "Revert failed (likely conflict), leaving as-is"
+            echo "rolled_back=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create issue on failure
+        if: steps.bot-check.outputs.status == 'failed'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COMMIT_SHA: ${{ github.sha }}
+          ROLLED_BACK: ${{ steps.rollback.outputs.rolled_back }}
+        run: |
+          SHORT_SHA="${COMMIT_SHA:0:8}"
+          if [ "$ROLLED_BACK" = "true" ]; then
+            STATUS="✅ AUTO-REVERTED"
+            BODY="Health check failed after commit ${COMMIT_SHA}. Auto-rollback successful — main is now at the previous healthy commit. Investigate why ${SHORT_SHA} broke the bot before retrying."
+          else
+            STATUS="❌ STILL BROKEN"
+            BODY="Health check failed after commit ${COMMIT_SHA}. Auto-rollback FAILED (conflict or no previous commit). Manual intervention required. Check Railway logs."
+          fi
+          gh issue create \
+            --title "Health check failed after deploy ${SHORT_SHA} — ${STATUS}" \
+            --body "${BODY}" \
+            --label "auto-fix"
+
+      - name: Notify failure via Telegram
+        if: steps.bot-check.outputs.status == 'failed'
+        env:
+          TG_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TG_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_IDS }}
+          COMMIT_SHA: ${{ github.sha }}
+          ROLLED_BACK: ${{ steps.rollback.outputs.rolled_back }}
+        run: |
+          SHORT_SHA="${COMMIT_SHA:0:8}"
+          if [ "$ROLLED_BACK" = "true" ]; then
+            MSG="Health check FAILED apres deploy ${SHORT_SHA}\n\nAuto-revert effectue — main est revenu au commit precedent. Issue auto-fix creee."
+          else
+            MSG="Health check FAILED apres deploy ${SHORT_SHA}\n\nAuto-revert IMPOSSIBLE (conflit). Intervention manuelle requise. Issue auto-fix creee."
+          fi
+          curl -s -X POST "https://api.telegram.org/bot${TG_TOKEN}/sendMessage" \
+            -H "Content-Type: application/json" \
+            -d "{\"chat_id\": \"${TG_CHAT_ID}\", \"text\": $(echo "$MSG" | jq -Rs .)}"
