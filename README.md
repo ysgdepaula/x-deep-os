@@ -69,6 +69,8 @@ After `./install.sh`:
 
 ## Quick start
 
+> Never used a terminal before? See [`docs/getting-started.md`](docs/getting-started.md) for a hand-held walkthrough (5-min primer on `cd`, `git clone`, and the 3 most common mistakes).
+
 ```bash
 git clone https://github.com/ysgdepaula/x-deep-os.git
 cd x-deep-os

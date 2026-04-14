@@ -6,6 +6,59 @@ This guide covers the **local-only** setup. For 24/7 Telegram deployment, contin
 
 ---
 
+<details>
+<summary><strong>Never used a terminal before? Start here</strong> (click to expand)</summary>
+
+If you've never run commands in a terminal, this 5-minute primer gets you over the hurdle. If you're already comfortable with `cd`, `git clone`, and `npm install`, skip to Prerequisites below.
+
+### What is a "terminal"?
+
+It's a text-only window where you type commands instead of clicking. Every command does one thing: download something, move to a folder, run a program.
+
+### Open the terminal
+
+- **macOS**: press `Cmd+Space`, type `Terminal`, press Enter
+- **Linux**: press `Ctrl+Alt+T` (or search "Terminal" in your apps)
+- **Windows**: install [WSL](https://learn.microsoft.com/en-us/windows/wsl/install) first (one-time setup, 10 min), then open "Ubuntu" from your Start menu
+
+You'll see a line ending in `$` or `%` — that's the **prompt**. It's where you type.
+
+### The 3 commands you'll use here
+
+| Command | What it does |
+|---|---|
+| `cd <folder>` | Move into a folder. `cd /tmp` = go to the `/tmp` folder. `cd ..` = go up one level. |
+| `git clone <URL>` | Download a project from GitHub. The folder lands in your current location. |
+| `./script.sh` | Run a local script named `script.sh`. The `./` means "here, in this folder". |
+
+### Copy-pasting commands
+
+You'll copy commands from this guide into the terminal. On macOS/Linux:
+- Select the command with your mouse (or `Cmd/Ctrl+A` inside a code block on GitHub)
+- `Cmd+C` to copy, `Cmd+V` (macOS) or `Ctrl+Shift+V` (Linux) to paste into terminal
+- Press **Enter** to run
+
+**Do NOT copy the `$` or `%` at the start of the line** — those are just showing the prompt, they're not part of the command.
+
+### Common mistakes
+
+- **Typo in file names** — `.mjs` vs `.msj` looks identical but only `.mjs` works
+- **Running from the wrong folder** — always check your prompt shows the folder you expect (e.g. `/tmp/x-deep-os $`)
+- **Nothing happens when you press Enter** — some commands produce no output when they succeed. That's normal. Just run the next one.
+- **Permission denied on `./install.sh`** — run `chmod +x install.sh` first
+- **`command not found: claude`** — Claude Code isn't installed. See "Prerequisites" below.
+
+### If something breaks
+
+Don't panic. Copy the exact error message and:
+1. Check you're in the right folder (`pwd` shows your current folder)
+2. Check you typed the command exactly (spaces and dots matter)
+3. Open an issue on the repo with the error message
+
+You won't "break" your computer by running these commands. The worst that happens is "a folder in `/tmp` exists that you don't want" — and `/tmp` wipes itself when you restart.
+
+</details>
+
 ## Prerequisites
 
 - **macOS, Linux, or WSL on Windows** (the bash installer assumes Unix-like)
