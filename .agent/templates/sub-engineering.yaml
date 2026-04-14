@@ -35,7 +35,7 @@ agent:
     - Any YAML or JSON generation must pass schema validation before commit
 
   tools_allowed: [github, bash, filesystem]
-  skills_owned: [engineering]
+  skills_owned: [scaffold, validate-all, propose-refactor]
 
   reports_to: xdeep-master
   output_validation: optional

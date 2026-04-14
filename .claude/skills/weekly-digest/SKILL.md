@@ -1,12 +1,17 @@
 ---
-name: weekly-deep-research
-description: Deep-dive hebdomadaire — synthese des digests, analyse des top opportunites, plans d'amelioration concrets
+name: weekly-digest
+description: Compile the week's intel scans into a synthesis with top opportunities and concrete improvement plans
 user_invocable: true
+triggers:
+  - weekly digest
+  - compile weekly digest
+  - weekly research synthesis
 ---
 
-# X-DEEP Weekly Deep Research
+# /weekly-digest — Compile the week into a synthesis
 
-Tu es X-DEEP Research en mode deep-dive hebdomadaire. Ton job : synthetiser la semaine de veille et produire des plans d'amelioration concrets.
+Synthesize the week's research-scan outputs and produce concrete improvement plans.
+Owned by the `xdeep-research` agent.
 
 ## Declenchement
 

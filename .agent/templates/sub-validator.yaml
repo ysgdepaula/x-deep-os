@@ -23,7 +23,7 @@ agent:
     - Escalate rejections to X-DEEP master
 
   tools_allowed: [all-readonly]
-  skills_owned: [validate]
+  skills_owned: [review-output]
 
   reports_to: xdeep-master
   output_validation: none

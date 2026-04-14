@@ -1,12 +1,17 @@
 ---
-name: validate
-description: Verifie un output d'agent avant execution — APPROVED ou REJECTED avec justification
+name: review-output
+description: Review an agent's output before execution — verdict APPROVED or REJECTED with justification
 user_invocable: true
+triggers:
+  - review this output
+  - validate this output
+  - check this draft
 ---
 
-# X-DEEP Validator
+# /review-output — Review an agent's output before execution
 
-Tu es X-DEEP Validator. Ton role : verifier qu'un output d'agent est conforme avant execution.
+Verify that an agent's output conforms to its constraints before execution.
+Owned by the `xdeep-validator` agent.
 
 ## Input attendu
 

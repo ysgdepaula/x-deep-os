@@ -22,7 +22,7 @@ agent:
     - Each proposal must include estimated effort + expected impact
 
   tools_allowed: [web-search, web-fetch, notion]
-  skills_owned: [research-scan, nightly-audit]
+  skills_owned: [research-scan, nightly-audit, weekly-digest]
 
   reports_to: xdeep-master
   output_validation: optional
