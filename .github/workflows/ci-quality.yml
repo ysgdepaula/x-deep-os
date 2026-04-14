@@ -8,7 +8,7 @@ jobs:
   enforce-file-limit:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
       - name: Count changed files
@@ -38,7 +38,7 @@ jobs:
   validate-agents:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
@@ -53,7 +53,7 @@ jobs:
       telegram-bot: ${{ steps.filter.outputs.telegram-bot }}
       mcp-servers: ${{ steps.filter.outputs.mcp-servers }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: dorny/paths-filter@v3
         id: filter
         with:
@@ -68,7 +68,7 @@ jobs:
     if: needs.detect-changes.outputs.telegram-bot == 'true'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
@@ -83,7 +83,7 @@ jobs:
     if: needs.detect-changes.outputs.mcp-servers == 'true'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
