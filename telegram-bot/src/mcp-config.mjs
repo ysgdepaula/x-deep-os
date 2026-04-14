@@ -73,7 +73,11 @@ export const MCP_SERVERS = {
     },
   },
 
-  // Add your own entries below. Examples from the original project include
-  // banking (Qonto), accounting (Pennylane), and public data APIs (DVF,
-  // SIRENE, BAN). See docs/customize.md for the pattern.
+  // Add your own entries below. Common categories to wire up:
+  //   - banking (Qonto, Stripe, Mercury)
+  //   - accounting (Pennylane, QuickBooks, Xero)
+  //   - CRM (HubSpot, Pipedrive, Salesforce)
+  //   - project mgmt (Linear, Jira, Asana)
+  //   - public data APIs (DVF/SIRENE/BAN for France, Companies House for UK, etc.)
+  // See docs/customize.md for the pattern.
 };
