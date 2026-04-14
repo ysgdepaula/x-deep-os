@@ -114,6 +114,16 @@ if [[ -f ".agent/templates/xdeep-master.yaml" ]]; then
 fi
 echo "  ${GREEN}✓${RESET} .agent/templates/ (agents personalized, master renamed to ${DEEP_ID}-master)"
 
+# state.json — replace xdeep- prefix with user's prefix + update identity
+if [[ -f ".agent/state.json" ]]; then
+  sed -i.bak \
+    -e "s|\"xdeep-|\"${DEEP_ID}-|g" \
+    -e "s|X-DEEP — personal AI OS for CEOs of service businesses\. Replace this with your own identity after install\.|${DEEP_NAME} — personal AI OS for ${USER_NAME} (${USER_ROLE} at ${COMPANY_NAME})|g" \
+    ".agent/state.json"
+  rm -f ".agent/state.json.bak"
+  echo "  ${GREEN}✓${RESET} .agent/state.json (agent IDs renamed to ${DEEP_ID}-*, identity updated)"
+fi
+
 echo ""
 echo "${BOLD}${GREEN}Done. Welcome to ${DEEP_NAME}.${RESET}"
 echo ""
