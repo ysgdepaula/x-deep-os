@@ -103,7 +103,7 @@ M-DEEP Master (orchestrator — level 2)
 ### Continuous improvement loop
 ```
 Night (2h)     →  nightly-audit
-Sunday (3h)    →  weekly-deep-research
+Sunday (3h)    →  weekly-digest
 Monday morning →  /hello briefing before COMEX
 Day            →  Telegram interactions (Marc) + terminal work (agent)
 Correction     →  learning protocol

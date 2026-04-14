@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://ydeep.local/schemas/state.schema.json",
-  "title": "YDEEP State",
-  "description": "Source of truth for the YDEEP agent system",
+  "$id": "https://x-deep.local/schemas/state.schema.json",
+  "title": "X-DEEP State",
+  "description": "Source of truth for the X-DEEP agent system",
   "type": "object",
   "required": [
     "version",
@@ -24,7 +24,7 @@
       "type": "object",
       "minProperties": 1,
       "patternProperties": {
-        "^(ydeep|x-deep)-[a-z][a-z0-9-]*$": { "$ref": "#/$defs/agent" }
+        "^[a-z][a-z0-9]*-[a-z][a-z0-9-]*$": { "$ref": "#/$defs/agent" }
       },
       "additionalProperties": false
     },

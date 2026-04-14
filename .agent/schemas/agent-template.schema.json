@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://ydeep.local/schemas/agent-template.schema.json",
-  "title": "YDEEP Agent Template",
+  "$id": "https://x-deep.local/schemas/agent-template.schema.json",
+  "title": "X-DEEP Agent Template",
   "description": "Schema for sub-<name>.yaml templates in .agent/templates/",
   "type": "object",
   "required": ["agent"],
@@ -24,8 +24,8 @@
       "properties": {
         "id": {
           "type": "string",
-          "pattern": "^(ydeep|x-deep)-[a-z][a-z0-9-]*$",
-          "description": "Must match key in state.json agents"
+          "pattern": "^[a-z][a-z0-9]*-[a-z][a-z0-9-]*$",
+          "description": "kebab-case. Must match key in state.json agents. Any user prefix allowed (xdeep-, mdeep-, ydeep-, etc.)"
         },
         "name": { "type": "string", "minLength": 1 },
         "role": { "type": "string", "minLength": 1 },

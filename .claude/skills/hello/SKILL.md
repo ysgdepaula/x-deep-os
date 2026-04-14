@@ -169,7 +169,7 @@ PENDANT TON ABSENCE
 - 1 commit : integration your business bank/your accounting tool dans le bot Telegram
 
 DECISIONS EN ATTENTE
-- [ ] Creer trigger weekly-deep-research (API error la derniere fois) (~10 min)
+- [ ] Creer trigger weekly-digest (API error la derniere fois) (~10 min)
 - [ ] Decider sort de chef-nightly-optimization (~5 min)
 
 AGENDA

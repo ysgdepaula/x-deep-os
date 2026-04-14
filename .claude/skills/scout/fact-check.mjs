@@ -52,7 +52,7 @@ export function factCheck(scoutOutput) {
     for (const skill of agent.skills || []) stateSkills.add(skill);
   }
   const relatedAgents = [...stateAgents].filter((a) =>
-    claimTexts.some((c) => c.includes(a.toLowerCase().replace('ydeep-', '').replace('x-deep-', '')))
+    claimTexts.some((c) => c.includes(a.toLowerCase().replace('x-deep-', '')))
   );
   const relatedSkills = [...stateSkills].filter((s) => claimTexts.some((c) => c.includes(s.toLowerCase())));
 

@@ -107,7 +107,7 @@ Shared state between all conversations and agents:
 ### Continuous improvement loop
 ```
 Night (2h)     →  nightly-audit: repo audit + research scan + autonomy stats
-Sunday (3h)    →  weekly-deep-research: synthesis + deep-dive + plans
+Sunday (3h)    →  weekly-digest: synthesis + deep-dive + plans
 Morning        →  /hello: Jarvis briefing — status, decisions, agenda, strategy
 Day            →  conversations respect rules.md, write to changelog
 Correction     →  learning protocol: capture delta → rule → eval

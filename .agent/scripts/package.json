@@ -1,9 +1,9 @@
 {
-  "name": "ydeep-agent-scripts",
+  "name": "x-deep-agent-scripts",
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Validation scripts for YDEEP agent files (state.json, templates, skills)",
+  "description": "Validation scripts for X-DEEP agent files (state.json, templates, skills)",
   "dependencies": {
     "yaml": "^2.8.3"
   }

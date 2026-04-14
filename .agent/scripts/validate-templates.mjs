@@ -42,7 +42,7 @@ function main() {
 
     const errors = validate(parsed, schema);
 
-    // Cross-ref: id must be in state.json (skip ydeep-master.yaml since it always exists)
+    // Cross-ref: id must be in state.json (skip xdeep-master.yaml since it always exists)
     if (parsed?.agent?.id && !agentIds.has(parsed.agent.id)) {
       errors.push({
         path: ".agent.id",

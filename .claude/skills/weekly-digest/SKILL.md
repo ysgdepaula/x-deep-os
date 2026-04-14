@@ -16,7 +16,7 @@ Owned by the `xdeep-research` agent.
 ## Declenchement
 
 - Trigger remote : dimanche 3h du matin (cron `0 3 * * 0`)
-- Ou manuellement via `/weekly-deep-research`
+- Ou manuellement via `/weekly-digest`
 
 ## Etape 1 — Synthese des digests
 

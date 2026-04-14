@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://ydeep.local/schemas/skill-frontmatter.schema.json",
-  "title": "YDEEP Skill Frontmatter",
+  "$id": "https://x-deep.local/schemas/skill-frontmatter.schema.json",
+  "title": "X-DEEP Skill Frontmatter",
   "description": "Schema for the YAML frontmatter of .claude/skills/<name>/SKILL.md",
   "type": "object",
   "required": ["name", "description"],
@@ -20,6 +20,19 @@
     "user_invocable": {
       "type": "boolean",
       "default": true
+    },
+    "version": {
+      "type": "string",
+      "description": "Optional semver (e.g. 1.0.0)"
+    },
+    "agent": {
+      "type": "string",
+      "description": "Optional: owning agent id (for documentation; authoritative source is agent template skills_owned)"
+    },
+    "triggers": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "description": "Optional list of natural-language trigger phrases that route to this skill"
     }
   }
 }

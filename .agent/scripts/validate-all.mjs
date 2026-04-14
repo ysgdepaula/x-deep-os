@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Run all YDEEP agent validators in series.
+// Run all X-DEEP agent validators in series.
 // Exit code 0 = all pass, non-zero = at least one failed.
 // Used by CI quality gate and manually before risky changes.
 

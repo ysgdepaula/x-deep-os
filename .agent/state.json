@@ -1,0 +1,63 @@
+{
+  "version": 1,
+  "last_updated": "2026-04-14",
+  "identity": "X-DEEP — personal AI OS for CEOs of service businesses. Replace this with your own identity after install.",
+  "agents": {
+    "xdeep-master": {
+      "autonomy_level": 2,
+      "skills": ["hello", "sync-state", "atomic-run"],
+      "stats": { "total": 0, "approved": 0, "rejected": 0 }
+    },
+    "xdeep-sales": {
+      "autonomy_level": 0,
+      "skills": [],
+      "stats": { "total": 0, "approved": 0, "rejected": 0 }
+    },
+    "xdeep-comms": {
+      "autonomy_level": 0,
+      "skills": [],
+      "stats": { "total": 0, "approved": 0, "rejected": 0 }
+    },
+    "xdeep-product": {
+      "autonomy_level": 0,
+      "skills": [],
+      "stats": { "total": 0, "approved": 0, "rejected": 0 }
+    },
+    "xdeep-finance": {
+      "autonomy_level": 0,
+      "skills": [],
+      "stats": { "total": 0, "approved": 0, "rejected": 0 }
+    },
+    "xdeep-research": {
+      "autonomy_level": 1,
+      "skills": ["research-scan", "nightly-audit", "weekly-digest"],
+      "stats": { "total": 0, "approved": 0, "rejected": 0 }
+    },
+    "xdeep-scout": {
+      "autonomy_level": 1,
+      "skills": ["scout"],
+      "stats": { "total": 0, "approved": 0, "rejected": 0 }
+    },
+    "xdeep-engineering": {
+      "autonomy_level": 1,
+      "skills": ["scaffold", "validate-all", "propose-refactor"],
+      "stats": { "total": 0, "approved": 0, "rejected": 0 }
+    },
+    "xdeep-validator": {
+      "autonomy_level": 2,
+      "skills": ["review-output"],
+      "stats": { "total": 0, "approved": 0, "rejected": 0 }
+    }
+  },
+  "triggers": {
+    "remote": [],
+    "local": []
+  },
+  "protocols": [
+    "validation",
+    "autonomy-promotion",
+    "learning"
+  ],
+  "projects": [],
+  "mcp": []
+}
