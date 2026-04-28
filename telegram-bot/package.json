@@ -9,7 +9,7 @@
     "lint": "eslint src/"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.52.0",
+    "@anthropic-ai/sdk": "^0.91.1",
     "@modelcontextprotocol/sdk": "^1.12.1",
     "dotenv": "^16.5.0",
     "grammy": "^1.35.0",
