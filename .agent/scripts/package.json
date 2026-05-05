@@ -5,6 +5,6 @@
   "type": "module",
   "description": "Validation scripts for X-DEEP agent files (state.json, templates, skills)",
   "dependencies": {
-    "yaml": "^2.8.3"
+    "yaml": "^2.8.4"
   }
 }
